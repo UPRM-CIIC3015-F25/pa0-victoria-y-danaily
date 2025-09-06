@@ -4,11 +4,12 @@ def ball_movement():
     """
     Handles the movement of the ball and collision detection with the player and screen boundaries.
     """
-    global ball_speed_x, ball_speed_y, score, start
+    global ball_speed_x, ball_speed_y, score, start, high_score
 
     # Move the ball
     ball.x += ball_speed_x
     ball.y += ball_speed_y
+
 
     # Start the ball movement when the game begins
     # TODO Task 5 Create a Merge Conflict
@@ -23,6 +24,8 @@ def ball_movement():
         if abs(ball.bottom - player.top) < 10:  # Check if ball hits the top of the paddle
             # TODO Task 2: Fix score to increase by 1
             score = score + 1
+            if score > high_score:
+                high_score = score
             print(score) # Increase player score
             ball_speed_y *= -1  # Reverse ball's vertical direction
             # TODO Task 6: Add sound effects HERE
@@ -91,7 +94,9 @@ player_speed = 0
 
 # Score Text setup
 score = 0
-basic_font = pygame.font.Font('freesansbold.ttf', 32)  # Font for displaying score
+high_score = 0
+score_font = pygame.font.Font('freesansbold.ttf', 32)  # Font for displaying score
+high_score_font = pygame.font.Font('freesansbold.ttf', 20) #Font for displaying high score
 
 start = False  # Indicates if the game has started
 
@@ -132,8 +137,10 @@ while True:
     pygame.draw.rect(screen, light_grey, player)  # Draw player paddle
     # TODO Task 3: Change the Ball Color
     pygame.draw.ellipse(screen, blue_violet, ball)  # Draw ball
-    player_text = basic_font.render(f'{score}', False, light_grey)  # Render player score
+    player_text = score_font.render(f'{score}', False, light_grey)  # Render player score
     screen.blit(player_text, (screen_width/2 - 15, 10))  # Display score on screen
+    high_score_text = high_score_font.render(f'High Score: {high_score}', False, red) #Display high score
+    screen.blit(high_score_text, (screen_width / 1 - 150, 10))
 
     # Update display
     pygame.display.flip()
