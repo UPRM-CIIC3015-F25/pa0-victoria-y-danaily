@@ -121,11 +121,14 @@ while True:
     ball_movement()
     player_movement()
 
+
     # Visuals
     light_grey = pygame.Color('grey83')
     blue_violet = pygame.Color('blueviolet')
     red = pygame.Color('red')
-    screen.fill(bg_color)  # Clear screen with background color
+    background = pygame.image.load("image/galaxy3.jpg").convert()
+    background = pygame.transform.scale(background, (screen_width, screen_height))
+    screen.blit(background, (0, 0)) # Clear screen with background color
     pygame.draw.rect(screen, light_grey, player)  # Draw player paddle
     # TODO Task 3: Change the Ball Color
     pygame.draw.ellipse(screen, blue_violet, ball)  # Draw ball
@@ -135,3 +138,4 @@ while True:
     # Update display
     pygame.display.flip()
     clock.tick(60)  # Maintain 60 frames per second
+
